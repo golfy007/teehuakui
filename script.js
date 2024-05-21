@@ -1,23 +1,30 @@
 document.addEventListener('DOMContentLoaded', () => {
     const holes = document.querySelectorAll('.hole');
     const scoreDisplay = document.getElementById('score');
+    const highScoreDisplay = document.getElementById('highScore');
+    const highScoreNameDisplay = document.getElementById('highScoreName');
     const startButton = document.getElementById('startButton');
     let score = 0;
+    let highScore = 0;
+    let highScoreName = 'N/A';
     let gameActive = false;
     let activeHole = null;
     let gameInterval;
     let timer;
+    let intervalTime = 1500;
     let missCount = 0;
-    let intervalTime = 1000;
+    let playerName = '';
 
     startButton.addEventListener('click', startGame);
 
     function startGame() {
         if (gameActive) return;
+        playerName = prompt("Please enter your name:");
+        if (!playerName) return;
         gameActive = true;
         score = 0;
         missCount = 0;
-        intervalTime = 1000;
+        intervalTime = 1500;
         scoreDisplay.textContent = score;
         gameInterval = setInterval(() => {
             if (activeHole) {
@@ -34,10 +41,12 @@ document.addEventListener('DOMContentLoaded', () => {
             activeHole.classList.add('active');
 
             timer = setTimeout(() => {
-                activeHole.classList.remove('active');
-                missCount++;
-                if (missCount > 3) {
-                    endGame('กุ๊ยรักคุณ! คะแนนของคุณคือ ' + score);
+                if (activeHole) {
+                    activeHole.classList.remove('active');
+                    missCount++;
+                    if (missCount > 3) {
+                        endGame('กุ๊ยรักคุณ! คะแนนของคุณคือ ' + score);
+                    }
                 }
             }, intervalTime);
 
@@ -50,6 +59,12 @@ document.addEventListener('DOMContentLoaded', () => {
         clearInterval(gameInterval);
         clearTimeout(timer);
         alert(message);
+        if (score > highScore) {
+            highScore = score;
+            highScoreName = playerName;
+            highScoreDisplay.textContent = highScore;
+            highScoreNameDisplay.textContent = highScoreName;
+        }
     }
 
     holes.forEach(hole => {
@@ -68,11 +83,4 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-
-    // Stop game after 30 seconds
-    setTimeout(() => {
-        if (gameActive) {
-            endGame('กุ๊ยรักคุณ! คะแนนของคุณคือ ' + score);
-        }
-    }, 30000);
 });
