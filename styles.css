@@ -10,13 +10,17 @@ body {
 
 .game-container {
     text-align: center;
+    max-width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
 }
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(5, 100px);
+    grid-template-columns: repeat(3, 1fr);
     grid-gap: 10px;
     justify-content: center;
+    max-width: 100%;
 }
 
 .hole {
@@ -62,4 +66,17 @@ body {
 .hole.hit .mole {
     bottom: 150%;
     transition: bottom 0.5s;
+}
+
+@media (max-width: 600px) {
+    .hole {
+        width: 60px;
+        height: 60px;
+    }
+    .mole {
+        width: 50px;
+    }
+    .ouch {
+        font-size: 18px;
+    }
 }
