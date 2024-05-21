@@ -27,10 +27,13 @@ body {
     position: relative;
     overflow: hidden;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
 }
 
 .mole {
-    width: 100px;
+    width: 80px;
     position: absolute;
     bottom: -100px;
     transition: bottom 0.5s;
@@ -38,4 +41,18 @@ body {
 
 .hole.active .mole {
     bottom: 0;
+}
+
+.ouch {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: red;
+    font-size: 18px;
+    display: none;
+}
+
+.hole.show-ouch .ouch {
+    display: block;
 }
