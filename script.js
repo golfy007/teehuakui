@@ -12,18 +12,14 @@ document.addEventListener('DOMContentLoaded', () => {
     let gameInterval;
     let timer;
     let intervalTime = 1500;
-    let missCount = 0;
     let playerName = '';
 
     startButton.addEventListener('click', startGame);
 
     function startGame() {
         if (gameActive) return;
-        playerName = prompt("Please enter your name:");
-        if (!playerName) return;
         gameActive = true;
         score = 0;
-        missCount = 0;
         intervalTime = 1500;
         activeHoles = [];
         scoreDisplay.textContent = score;
@@ -38,10 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             timer = setTimeout(() => {
                 if (gameActive) {
-                    missCount++;
-                    if (missCount > 3) {
-                        endGame('กุ๊ยรักคุณ! คะแนนของคุณคือ ' + score);
-                    }
+                    endGame('กุ๊ยรักคุณ! คะแนนของคุณคือ ' + score);
                 }
             }, intervalTime);
             intervalTime = Math.max(300, intervalTime - 50); // Decrease the interval time but not below 300ms
@@ -51,6 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function clearHoles() {
         activeHoles.forEach(index => {
             holes[index].classList.remove('active');
+            holes[index].classList.remove('hit');
         });
         activeHoles = [];
         clearTimeout(timer);
@@ -62,6 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
         clearTimeout(timer);
         clearHoles();
         alert(message);
+        playerName = prompt("Please enter your name:");
         if (score > highScore) {
             highScore = score;
             highScoreName = playerName;
@@ -76,12 +71,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 score++;
                 scoreDisplay.textContent = score;
                 hole.classList.add('show-ouch');
+                hole.classList.add('hit');
                 setTimeout(() => {
                     hole.classList.remove('show-ouch');
                 }, 500);
+                setTimeout(() => {
+                    hole.classList.remove('hit');
+                }, 500);
                 hole.classList.remove('active');
                 clearTimeout(timer);
-                missCount = 0; // Reset miss count if player hits the mole
                 activeHoles.splice(activeHoles.indexOf(Array.from(holes).indexOf(hole)), 1);
             }
         });
