@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let gameActive = false;
     let activeHole = null;
     let gameInterval;
+    let timer;
 
     startButton.addEventListener('click', startGame);
 
@@ -17,11 +18,23 @@ document.addEventListener('DOMContentLoaded', () => {
         gameInterval = setInterval(() => {
             if (activeHole) {
                 activeHole.classList.remove('active');
+                clearTimeout(timer);
             }
             const randomIndex = Math.floor(Math.random() * holes.length);
             activeHole = holes[randomIndex];
             activeHole.classList.add('active');
+
+            timer = setTimeout(() => {
+                endGame();
+            }, 1000);
         }, 1000);
+    }
+
+    function endGame() {
+        gameActive = false;
+        clearInterval(gameInterval);
+        clearTimeout(timer);
+        alert('กุ๊ยรักคุณ! คะแนนของคุณคือ ' + score);
     }
 
     holes.forEach(hole => {
@@ -34,6 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     hole.classList.remove('show-ouch');
                 }, 500);
                 hole.classList.remove('active');
+                clearTimeout(timer);
                 activeHole = null;
             }
         });
@@ -41,8 +55,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Stop game after 30 seconds
     setTimeout(() => {
-        gameActive = false;
-        clearInterval(gameInterval);
-        alert('คุณแพ้กุ๊ย! คะแนนของคุณคือ ' + score);
+        if (gameActive) {
+            endGame();
+        }
     }, 30000);
 });
