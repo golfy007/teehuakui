@@ -64,8 +64,18 @@ body {
 }
 
 .hole.hit .mole {
-    bottom: 150%;
-    transition: bottom 0.5s;
+    animation: shake 0.5s, fadeOut 0.5s forwards;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+}
+
+@keyframes fadeOut {
+    to { opacity: 0; }
 }
 
 @media (max-width: 600px) {
