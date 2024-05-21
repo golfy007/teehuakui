@@ -29,6 +29,13 @@ body {
     cursor: pointer;
 }
 
-.hole.active {
-    background-color: #00ff00;
+.mole {
+    width: 100px;
+    position: absolute;
+    bottom: -100px;
+    transition: bottom 0.5s;
+}
+
+.hole.active .mole {
+    bottom: 0;
 }
