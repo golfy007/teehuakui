@@ -2,17 +2,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const holes = document.querySelectorAll('.hole');
     const scoreDisplay = document.getElementById('score');
     const highScoreDisplay = document.getElementById('highScore');
-    const highScoreNameDisplay = document.getElementById('highScoreName');
     const startButton = document.getElementById('startButton');
     let score = 0;
     let highScore = 0;
-    let highScoreName = 'N/A';
     let gameActive = false;
     let activeHoles = [];
     let gameInterval;
     let timer;
     let intervalTime = 1500;
-    let playerName = '';
+    let ouchMessages = ['อุ๊ย!', 'จุ๊บๆ'];
 
     startButton.addEventListener('click', startGame);
 
@@ -56,12 +54,9 @@ document.addEventListener('DOMContentLoaded', () => {
         clearTimeout(timer);
         clearHoles();
         alert(message);
-        playerName = prompt("Please enter your name:");
         if (score > highScore) {
             highScore = score;
-            highScoreName = playerName;
             highScoreDisplay.textContent = highScore;
-            highScoreNameDisplay.textContent = highScoreName;
         }
     }
 
@@ -70,6 +65,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (activeHoles.includes(Array.from(holes).indexOf(hole)) && gameActive) {
                 score++;
                 scoreDisplay.textContent = score;
+                const randomOuch = ouchMessages[Math.floor(Math.random() * ouchMessages.length)];
+                hole.querySelector('.ouch').textContent = randomOuch;
                 hole.classList.add('show-ouch');
                 hole.classList.add('hit');
                 setTimeout(() => {
