@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
     const holes = document.querySelectorAll('.hole');
-    const moles = document.querySelectorAll('.mole');
     const scoreDisplay = document.getElementById('score');
     const startButton = document.getElementById('startButton');
     let score = 0;
@@ -30,6 +29,10 @@ document.addEventListener('DOMContentLoaded', () => {
             if (hole === activeHole && gameActive) {
                 score++;
                 scoreDisplay.textContent = score;
+                hole.classList.add('show-ouch');
+                setTimeout(() => {
+                    hole.classList.remove('show-ouch');
+                }, 500);
                 hole.classList.remove('active');
                 activeHole = null;
             }
