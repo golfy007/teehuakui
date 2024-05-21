@@ -58,3 +58,8 @@ body {
     display: block;
     transform: translate(-50%, -50%) scale(1);
 }
+
+.hole.hit .mole {
+    bottom: 150%;
+    transition: bottom 0.5s;
+}
