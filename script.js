@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const holes = document.querySelectorAll('.hole');
+    const moles = document.querySelectorAll('.mole');
     const scoreDisplay = document.getElementById('score');
     const startButton = document.getElementById('startButton');
     let score = 0;
@@ -39,6 +40,6 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
         gameActive = false;
         clearInterval(gameInterval);
-        alert('Game Over! Your score is ' + score);
+        alert('คุณแพ้กุ๊ย! คะแนนของคุณคือ ' + score);
     }, 30000);
 });
